@@ -13,7 +13,7 @@ gtfs_isochrones(
 )
 }
 \arguments{
-\item{raptor_result}{tidytransit function to calculate}
+\item{raptor_result}{A result from tidytransit::raptor function}
 
 \item{stops}{A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops}
 
@@ -30,8 +30,5 @@ A single sp object.
 gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result. The function uses the minimal travel times from the start stop to all stops as a main input parameter. This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead. The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
 }
 \examples{
-
-
-gtfs_isochrones(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000)
 
 }
