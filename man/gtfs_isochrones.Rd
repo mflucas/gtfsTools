@@ -19,7 +19,7 @@ gtfs_isochrones(
 
 \item{breaks}{A vector containing the travel time breaks for the isochrone in seconds.}
 
-\item{hull_alpha_min}{The alpha values increase with increasing travel time for better graphic display of the isochrones.}
+\item{hull_alpha_min}{The alpha values increase by increasing break interval for better graphic display of the isochrones.}
 
 \item{buffer_value}{The shapes are buffered in the end for graphic display. Value in meters.}
 }

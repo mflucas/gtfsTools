@@ -9,7 +9,7 @@
 #' @param raptor_result A result from tidytransit::raptor function
 #' @param stops A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops
 #' @param breaks A vector containing the travel time breaks for the isochrone in seconds.
-#' @param hull_alpha_min The alpha values increase with increasing travel time for better graphic display of the isochrones.
+#' @param hull_alpha_min The alpha values increase by increasing break interval for better graphic display of the isochrones.
 #' @param buffer_value The shapes are buffered in the end for graphic display. Value in meters.
 #'
 #' @return An sp object with features corresponding to the isochrones of the breaks provided in 'breaks'.
@@ -30,7 +30,7 @@
 #'
 gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000){
 
-  if(unique(raptor_result)>1) stop(" 'raptor_result' has more than one origin stop")
+  if(length(unique(raptor_result[, from_stop_id]))>1) stop(" 'raptor_result' has more than one origin stop")
 
   is_increasing <- function(vec) {
     return(all(diff(vec) > 0))
