@@ -28,7 +28,8 @@
 #'
 #' @examples
 #'
-gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000){
+gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=5000){
+
 
   if(length(unique(raptor_result[, from_stop_id]))>1) stop(" 'raptor_result' has more than one origin stop")
 
@@ -173,7 +174,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
 
   #Create list of unioned isochrones
   buffererd_shapes <- list()
-  for(j in 1:(length(breaks)+1)){
+  for(j in 1:(length(breaks)-1)){
     points_buff <- sf::st_buffer(buffer[buffer$cat==j,] , buffer_value)
     points_union <- sf::st_union(points_buff)
     hull_buff <- sf::st_buffer(hull_sf_buff[[j]], buffer_value)
@@ -183,8 +184,8 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   }
 
   #Now take out overlapping
-  for(i in (length(breaks)):1){
-    for(j in (length(breaks)):1){
+  for(i in (length(buffererd_shapes)):1){
+    for(j in (length(buffererd_shapes)):1){
       if(!(i==j)){
         buffererd_shapes[[i]] <- sf::st_difference(buffererd_shapes[[i]], buffererd_shapes[[j]])
       }
@@ -209,6 +210,5 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   }
 
   return(sp_isochrone)
-
 
 }
