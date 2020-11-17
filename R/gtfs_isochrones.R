@@ -138,7 +138,8 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   stops_sf <- merge(stops_sf, traveltimes, by.x="stop_id", by.y="to_stop_id", all.y=T)
 
   #Translate the cutoffs into categories in the stops_sf table
-  stops_sf$cat <- length(breaks)
+  stops_sf$cat <- length(breaks)+1
+
   for (i in length(breaks):1){
     stops_sf$cat <- ifelse(stops_sf$travel_time<breaks[i], i, stops_sf$cat)
   }
@@ -174,7 +175,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
 
   #Create list of unioned isochrones
   buffererd_shapes <- list()
-  for(j in 1:(length(breaks)-1)){
+  for(j in 1:(length(breaks))){
     points_buff <- sf::st_buffer(buffer[buffer$cat==j,] , buffer_value)
     points_union <- sf::st_union(points_buff)
     hull_buff <- sf::st_buffer(hull_sf_buff[[j]], buffer_value)
