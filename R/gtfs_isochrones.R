@@ -141,7 +141,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   stops_sf$cat <- length(breaks)+1
 
   for (i in length(breaks):1){
-    stops_sf$cat <- ifelse(stops_sf$travel_time<breaks[i], i, stops_sf$cat)
+    stops_sf$cat <- ifelse(stops_sf$travel_time<=breaks[i], i, stops_sf$cat)
   }
 
   stops <- merge(stops, stops_sf[, c("stop_id", "cat")], by="stop_id")
