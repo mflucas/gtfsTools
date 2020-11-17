@@ -129,7 +129,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   stops_sf <- merge(stops_sf, traveltimes, by.x="stop_id", by.y="to_stop_id", all.y=T)
 
   #Translate the cutoffs into categories in the stops_sf table
-  stops_sf$cat <- length(breaks)+1
+  stops_sf$cat <- length(breaks)
   for (i in length(breaks):1){
     stops_sf$cat <- ifelse(stops_sf$travel_time<breaks[i], i, stops_sf$cat)
   }
