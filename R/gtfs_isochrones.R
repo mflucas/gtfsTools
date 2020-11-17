@@ -8,7 +8,7 @@ require(sp)
 #' Produces isochrones as an sf-object
 #'
 #' @description gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result. The function uses the minimal travel times from the start stop to all stops as a main input parameter. This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead. The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
-#' @param raptor_result tidytransit function to calculate
+#' @param raptor_result A result from tidytransit::raptor function
 #' @param stops A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops
 #' @param breaks A vector containing the travel time breaks for the isochrone in seconds.
 #' @param hull_alpha_min The alpha values increase with increasing travel time for better graphic display of the isochrones.
@@ -124,8 +124,9 @@ gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600)
 if(!(is.data.table(raptor_result))) stop(" 'raptor_result' must be a data.table")
 if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
 
-  traveltimes <- raptor_result[, list(travel_time=min(travel_time)),
-                             by = c("from_stop_id", "to_stop_id")]
+  raptor_result <- data.table(raptor_result)
+  traveltimes <- data.table(raptor_result[, list(travel_time=min(travel_time)),
+                             by = c("from_stop_id", "to_stop_id")])
 
   stops_sf <- tidytransit::stops_as_sf(stops)
   stops_sf <- merge(stops_sf, traveltimes, by.x="stop_id", by.y="to_stop_id", all.y=T)
