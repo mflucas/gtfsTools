@@ -199,11 +199,11 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   sp <- lapply(buffererd_shapes, as, "Spatial")
 
   sp_isochrone <- sp[[1]]
-  sp_isochrone$break_value <- breaks[1]/3600
+  sp_isochrone$break_value <- breaks[1]
 
   for(i in 2:length(sp)){
     sp_new <- sp[[i]]
-    sp_new$break_value <- breaks[i]/3600
+    sp_new$break_value <- breaks[i]
 
     sp_isochrone <- rbind(sp_isochrone, sp_new)
   }
