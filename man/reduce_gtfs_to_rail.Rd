@@ -2,7 +2,7 @@
 % Please edit documentation in R/reduce_gtfs_by_route_type.R
 \name{reduce_gtfs_to_rail}
 \alias{reduce_gtfs_to_rail}
-\title{Reduce a GTFS function to}
+\title{Reduce a GTFS file to a subset based on route_type}
 \usage{
 reduce_gtfs_to_rail(gtfs_in, route_type)
 }
@@ -15,7 +15,7 @@ reduce_gtfs_to_rail(gtfs_in, route_type)
 A tidytransit GTFS object filtered by the selected route type
 }
 \description{
-Reduce a GTFS function to
+Reduce a GTFS file to a subset based on route_type
 }
 \examples{
 

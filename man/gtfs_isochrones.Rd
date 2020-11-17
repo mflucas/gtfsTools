@@ -2,10 +2,7 @@
 % Please edit documentation in R/gtfs_isochrones.R
 \name{gtfs_isochrones}
 \alias{gtfs_isochrones}
-\title{gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result.
-The function uses the minimal travel times from the start stop to all stops as a main input parameter.
-This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead.
-The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).}
+\title{Produces isochrones as an sf-object}
 \usage{
 gtfs_isochrones(
   raptor_result,
@@ -30,10 +27,7 @@ gtfs_isochrones(
 A single sp object.
 }
 \description{
-gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result.
-The function uses the minimal travel times from the start stop to all stops as a main input parameter.
-This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead.
-The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
+gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result. The function uses the minimal travel times from the start stop to all stops as a main input parameter. This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead. The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
 }
 \examples{
 
