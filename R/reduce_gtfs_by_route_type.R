@@ -1,4 +1,4 @@
-#' Reduce a GTFS function to
+#' Reduce a GTFS file to a subset based on route_type
 #'
 #' @param gtfs_in tidytransit GTFS object
 #' @param numeric route_type to reduce the GTFS data to

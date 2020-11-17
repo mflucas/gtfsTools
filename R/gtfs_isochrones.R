@@ -4,13 +4,11 @@ require(sf)
 require(data.table)
 require(sp)
 
+gtfs_isochrones()
 
-
-#' gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result.
-#' The function uses the minimal travel times from the start stop to all stops as a main input parameter.
-#' This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead.
-#' The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
+#' Produces isochrones as an sf-object
 #'
+#' @description gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result. The function uses the minimal travel times from the start stop to all stops as a main input parameter. This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead. The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
 #' @param raptor_result tidytransit function to calculate
 #' @param stops A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops
 #' @param breaks A vector containing the travel time breaks for the isochrone in seconds.
@@ -143,7 +141,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
 #Now calculate the convex hulls for each break
   hulls <- list()
   for(i in 1:(length(breaks))){
-    hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_min+i/length(breaks))
+    hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_min+1.5*i/length(breaks))
   }
 
 
