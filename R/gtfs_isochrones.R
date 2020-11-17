@@ -8,9 +8,7 @@
 #' @param buffer_value The shapes are buffered in the end for graphic display. Value in meters.
 #'
 #' @return A single sp object.
-#' @export
 #'
-#' @examples
 #'
 #' @import data.table
 #' @import alphahull
@@ -18,7 +16,10 @@
 #' @import sp
 #' @import tidytransit
 #'
-#' @usage gtfs_isochrones(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000)
+#'
+#' @export
+#'
+#' @examples
 #'
 gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000){
 
@@ -28,8 +29,6 @@ gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600)
   }
 
   ah2sp <- function(x, increment=360, rnd=10, proj4string=CRS(as.character(NA))){
-    require(alphahull)
-    require(maptools)
     if (class(x) != "ahull"){
       stop("x needs to be an ahull class object")
     }
