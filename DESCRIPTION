@@ -16,4 +16,5 @@ Depends:
     alphahull, 
     data.table, 
     sf, 
-    sp
+    sp, 
+    rgeos

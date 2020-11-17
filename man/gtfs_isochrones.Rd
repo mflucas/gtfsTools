@@ -7,6 +7,7 @@
 gtfs_isochrones(
   raptor_result,
   stops,
+  stop,
   breaks = c(3600, 2 * 3600, 3 * 3600),
   hull_alpha_min = 0.2,
   buffer_value = 4000
@@ -16,6 +17,8 @@ gtfs_isochrones(
 \item{raptor_result}{A result from tidytransit::raptor function}
 
 \item{stops}{A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops}
+
+\item{stop}{The stop_id (as.character) of the origin stop}
 
 \item{breaks}{A vector containing the travel time breaks for the isochrone in seconds.}
 
