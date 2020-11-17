@@ -138,7 +138,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
 #Now calculate the convex hulls for each break
   hulls <- list()
   for(i in 1:(length(breaks))){
-    hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_min+1.5*i/length(breaks))
+    hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_alpha_min+1.5*i/length(breaks))
   }
 
 
