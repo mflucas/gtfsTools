@@ -4,7 +4,6 @@ require(sf)
 require(data.table)
 require(sp)
 
-gtfs_isochrones()
 
 #' Produces isochrones as an sf-object
 #'
