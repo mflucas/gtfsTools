@@ -2,13 +2,6 @@
 
 export(gtfs_isochrones)
 export(reduce_gtfs_to_rail)
-import("2*3600,")
-import("3*3600),")
-import("breaks=c(3600,")
-import("buffer_value=4000)")
-import("gtfs_isochrones(raptor_result,")
-import("hull_alpha_min=0.2,")
-import("stops,")
 import(alphahull)
 import(data.table)
 import(sf)

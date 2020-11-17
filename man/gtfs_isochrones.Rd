@@ -4,13 +4,7 @@
 \alias{gtfs_isochrones}
 \title{Produces isochrones as an sf-object}
 \usage{
-gtfs_isochrones(
-  raptor_result,
-  stops,
-  breaks = c(3600, 2 * 3600, 3 * 3600),
-  hull_alpha_min = 0.2,
-  buffer_value = 4000
-)
+gtfs_isochrones(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000)
 }
 \arguments{
 \item{raptor_result}{A result from tidytransit::raptor function}

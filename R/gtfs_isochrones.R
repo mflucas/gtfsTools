@@ -25,8 +25,7 @@ require(sp)
 #' @import sp
 #' @import tidytransit
 #'
-#'
-#'gtfs_isochrones(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000)
+#' @usage gtfs_isochrones(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000)
 #'
 gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000){
 
