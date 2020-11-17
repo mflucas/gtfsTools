@@ -7,7 +7,6 @@
 gtfs_isochrones(
   raptor_result,
   stops,
-  stop,
   breaks = c(3600, 2 * 3600, 3 * 3600),
   hull_alpha_min = 0.2,
   buffer_value = 4000
@@ -18,8 +17,6 @@ gtfs_isochrones(
 
 \item{stops}{A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops}
 
-\item{stop}{The stop_id (as.character) of the origin stop}
-
 \item{breaks}{A vector containing the travel time breaks for the isochrone in seconds.}
 
 \item{hull_alpha_min}{The alpha values increase with increasing travel time for better graphic display of the isochrones.}
@@ -27,10 +24,14 @@ gtfs_isochrones(
 \item{buffer_value}{The shapes are buffered in the end for graphic display. Value in meters.}
 }
 \value{
-A single sp object.
+An sp object with features corresponding to the isochrones of the breaks provided in 'breaks'.
 }
 \description{
-gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result. The function uses the minimal travel times from the start stop to all stops as a main input parameter. This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead. The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
+gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result.
+The function uses the minimal travel times from the start stop to all stops as a main input parameter.
+This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead.
+The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
+IMPORTANT: The raptor_result table has to have only have one single stop as origin
 }
 \examples{
 

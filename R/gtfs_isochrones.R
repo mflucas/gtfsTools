@@ -1,14 +1,18 @@
 #' Produces isochrones as an sf-object
 #'
-#' @description gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result. The function uses the minimal travel times from the start stop to all stops as a main input parameter. This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead. The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
+#' @description gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result.
+#' The function uses the minimal travel times from the start stop to all stops as a main input parameter.
+#' This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead.
+#' The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
+#' IMPORTANT: The raptor_result table has to have only have one single stop as origin
+#'
 #' @param raptor_result A result from tidytransit::raptor function
 #' @param stops A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops
-#' @param stop The stop_id (as.character) of the origin stop
 #' @param breaks A vector containing the travel time breaks for the isochrone in seconds.
 #' @param hull_alpha_min The alpha values increase with increasing travel time for better graphic display of the isochrones.
 #' @param buffer_value The shapes are buffered in the end for graphic display. Value in meters.
 #'
-#' @return A single sp object.
+#' @return An sp object with features corresponding to the isochrones of the breaks provided in 'breaks'.
 #'
 #'
 #' @import data.table
@@ -24,7 +28,9 @@
 #'
 #' @examples
 #'
-gtfs_isochrones <- function(raptor_result, stops, stop,breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000){
+gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=4000){
+
+  if(unique(raptor_result)>1) stop(" 'raptor_result' has more than one origin stop")
 
   is_increasing <- function(vec) {
     return(all(diff(vec) > 0))
