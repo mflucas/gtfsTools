@@ -173,7 +173,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
 
   #Create list of unioned isochrones
   buffererd_shapes <- list()
-  for(j in 1:(length(breaks))){
+  for(j in 1:(length(breaks)+1)){
     points_buff <- sf::st_buffer(buffer[buffer$cat==j,] , buffer_value)
     points_union <- sf::st_union(points_buff)
     hull_buff <- sf::st_buffer(hull_sf_buff[[j]], buffer_value)
