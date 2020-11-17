@@ -1,10 +1,3 @@
-require(alphahull)
-require(tidytransit)
-require(sf)
-require(data.table)
-require(sp)
-
-
 #' Produces isochrones as an sf-object
 #'
 #' @description gtfs_isochrones Creates one SP Object containg a isochrones calculated from a tidytransit::raptor result. The function uses the minimal travel times from the start stop to all stops as a main input parameter. This isochrone is a not meant to depict exact reachibility of transit in detail. Use opentripplanner for this instead. The goal here is to provide a decent overview of transit access at larger scales (regional, national or continental).
