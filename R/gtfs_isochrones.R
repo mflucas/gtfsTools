@@ -146,13 +146,12 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
 
   stops <- merge(stops, stops_sf[, c("stop_id", "cat")], by="stop_id")
 
+  stops <- stops[!duplicated(stops), ]
 #Now calculate the convex hulls for each break
   hulls <- list()
   for(i in 1:(length(breaks))){
     hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_alpha_min+0.5*i*i/length(breaks))
   }
-
-
 
 
 
