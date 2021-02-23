@@ -11,6 +11,7 @@
 #' @param breaks A vector containing the travel time breaks for the isochrone in seconds.
 #' @param hull_alpha_min The alpha values increase by increasing break interval for better graphic display of the isochrones.
 #' @param scaled scale hull_alpha min for increasing isochrone breaks? Defaults to true
+#' @param scaledIncrease scaling steps to which the alpha factor of the hull increases with increasing break values. Values around 0.1-0.5 are recommended.
 #' @param buffer_value The shapes are buffered in the end for graphic display. Value in meters.
 #'
 #' @return An sp object with features corresponding to the isochrones of the breaks provided in 'breaks'.
@@ -29,7 +30,7 @@
 #'
 #' @examples
 #'
-gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, scaled=T,buffer_value=5000){
+gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, scaled=T,buffer_value=5000, scaledIncrease=0.4){
 
 
   if(length(unique(raptor_result[, from_stop_id]))>1) stop(" 'raptor_result' has more than one origin stop")
@@ -153,7 +154,7 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   hulls <- list()
   if(scaled==T){
     for(i in 1:(length(breaks))){
-      hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_alpha_min+0.5*i*i/length(breaks))
+      hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_alpha_min+scaledIncrease*i*i/length(breaks))
     }
   } else {
       for(i in 1:(length(breaks))){
