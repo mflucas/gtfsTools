@@ -10,6 +10,7 @@
 #' @param stops A stops dataframe obtained from a tidytransit gtfs object: gtfs$stops
 #' @param breaks A vector containing the travel time breaks for the isochrone in seconds.
 #' @param hull_alpha_min The alpha values increase by increasing break interval for better graphic display of the isochrones.
+#' @param scaled scale hull_alpha min for increasing isochrone breaks? Defaults to true
 #' @param buffer_value The shapes are buffered in the end for graphic display. Value in meters.
 #'
 #' @return An sp object with features corresponding to the isochrones of the breaks provided in 'breaks'.
@@ -28,7 +29,7 @@
 #'
 #' @examples
 #'
-gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, buffer_value=5000){
+gtfs_isochrones <- function(raptor_result, stops, breaks=c(3600, 2*3600, 3*3600), hull_alpha_min=0.2, scaled=T,buffer_value=5000){
 
 
   if(length(unique(raptor_result[, from_stop_id]))>1) stop(" 'raptor_result' has more than one origin stop")
@@ -150,14 +151,31 @@ if(!(is_increasing(breaks))) stop(" 'breaks' must be in increasing order")
   stops <- stops[!duplicated(stops[c("stop_lat", "stop_lon")]),]
 #Now calculate the convex hulls for each break
   hulls <- list()
-  for(i in 1:(length(breaks))){
-    hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_alpha_min+0.5*i*i/length(breaks))
+  if(scaled=T){
+    for(i in 1:(length(breaks))){
+      hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_alpha_min+0.5*i*i/length(breaks))
+    }
+  } else {
+      for(i in 1:(length(breaks))){
+    hulls[[i]] <- alphahull::ahull(stops[stops$cat==i, ]$stop_lon, stops[stops$cat==i, ]$stop_lat, alpha = hull_alpha_min)
+  }
   }
 
 
 
   #Now transform ahull objects to sp objects:
   hull_sp <- lapply(hulls, FUN=ah2sp)
+
+
+  if(any(is.null(hull_sp[[]]))){
+    whichis <- lapply(hull_sp, is.null)
+    whichis <- unlist(whichis)
+    notplotted <- breaks[whichis]
+    warning(paste("Isochrone ", notplotted, " could not be plotted! "))
+    whichis <- !whichis
+    breaks <- breaks[whichis]
+    hull_sp[sapply(hull_sp, is.null)] <- NULL
+  }
 
   #And then to sf objects:
   hull_sf <- lapply(hull_sp, FUN=sf::st_as_sf)
